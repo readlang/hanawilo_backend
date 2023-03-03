@@ -101,17 +101,159 @@ const problem7 = () => {
 
 
 //-- PROBLEM 8 --
-
+const problem8 = () => {
+    const numbers = [
+        {
+        num: 1
+        },
+        {
+        num: 2
+        },
+        {
+        num: 3
+        }
+    ]
+    for (const ele of numbers) console.log(ele.num)
+}
+//problem8()
 
 
 //-- PROBLEM 9 --
+const problem9 = () => {
+    const exampleSet = new Set()
+    exampleSet.add("john doe")
+    console.log(exampleSet)
+    console.log(exampleSet.has("john doe"))
+    console.log(exampleSet.delete("john doe"))
+    console.log(exampleSet)
+}
+//problem9()
+
+
 //-- PROBLEM 10 --
+const problem10 = () => {
+    const newMap = new Map() // create the map
+    newMap.set("name", "john doe")
+    console.log(newMap)
+    const check = () => {
+        for (const ele of newMap.values()) {
+            if (ele === "john doe") return true
+        } return false
+    }
+    console.log(check())
+    newMap.delete("name")
+    console.log(newMap)
+}
+//problem10()
+
+
 //-- PROBLEM 11 --
+/** Normal, synchronous programming executes one-after-another top to bottom through a file.
+ * Any slow lines of code will block subsequent lines of code.
+ * Asynchronous programming takes certain elements out of this execution order, and allows  
+ * them to take longer, while the remaining elements go ahead and execute.  It is used
+ * for something like a API data fetch, which can potentially take much longer than other code
+ * to execute becuase the request has to travel to other servers on the web.
+ */
+
+
 //-- PROBLEM 12 --
+/** Callback hell is where you have multiple nested callback functions, which is hard to 
+ * follow and maintain.  The deeper the nesting the more confusing it is.
+ */
+
+
 //-- PROBLEM 13 --
+/** A promise is what is given initially in an asynchronous action, before it completes.
+ * For example in a Fetch before the response comes back.
+ * There are 3 potential states: pending (waiting), fulfilled (success) or rejected (failure/error).
+ */
+
+
 //-- PROBLEM 14 --
+/** Async / await is a way to specify an asynchronous function and the specific line of code 
+ * that will have to be "waited" on to complete or return data. 
+*/
+
+
 //-- PROBLEM 15 --
-//-- PROBLEM 16 --
-//-- PROBLEM 17 --
+const problem15a = async () => {
+    try {
+        const result = await fetch('https://rickandmortyapi.com/api/character')
+        const data = await result.json()
+        
+        let characters = []
+        for (const element of data.results) {
+            characters.push(element.name)
+        }
+        return characters
+    } catch (error) {
+        console.log(error)
+    }
+}
+// calls the fn and waits for the response to console.log
+//problem15a().then(data => console.log(data)) 
+
+
+const problem15b = async () => {
+    try {
+        const [result1, result2] = await Promise.all([
+            fetch("https://rickandmortyapi.com/api/character/2"),
+            fetch("https://randomuser.me/api/?results=1")
+        ])
+        const [data1, data2] = await Promise.all([
+            result1.json(),
+            result2.json()
+        ])
+        const {name: data1Name} = data1        
+        const {results: [ {name: {first: data2First, last: data2Last}} ] } = data2
+
+        return [data1Name, `${data2First} ${data2Last}`]
+    } catch (error) {
+        console.log(error)
+    }
+}
+problem15b().then(data => console.log("#15b:", data))
+
+
+//-- PROBLEM 16 & 17--
+const problem16and17 = () => {
+    class Shape {
+        constructor(name, sides, sideLength) {
+            this.name = name
+            this.sides = sides
+            this.sideLength = sideLength
+        }
+        calcPerimeter() {          // this is a method
+            console.log(this.name, "perimeter: ", this.sides * this.sideLength)
+        }
+    }
+
+    const square = new Shape("square", 4, 5)
+    square.calcPerimeter()
+
+    const triangle = new Shape("triangle", 3, 3)
+    triangle.calcPerimeter()
+
+    // this is problem 17:
+    class Square extends Shape {
+
+        constructor(sideLength) {
+            super("square", 4, sideLength);
+        }
+
+        calcArea() {
+            console.log(this.name, "area: ", this.sideLength ** 2 )
+        }
+    }
+    const square2 = new Square(8)
+    square2.calcPerimeter() // should be 32
+    square2.calcArea() // should be 64
+}
+problem16and17()
+
+
+
+
 //-- PROBLEM 18 --
 
