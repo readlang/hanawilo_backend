@@ -18,7 +18,7 @@ const putCategory = (req, res, next) => {
     res
     .status(200)
     .setHeader('Content-Type', 'application/json')
-    .json({ message: 'You hit me! Show me all the categories!' })
+    .json({ message: 'You hit me! PUTPUTPUT the categories!' })
 }
 
 const deleteCategories = (req, res, next) => {
