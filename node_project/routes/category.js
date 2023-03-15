@@ -11,6 +11,7 @@ const {
 } = require('../controllers/categoryController')
 
 router.route('/')
+    // .get(middleware1, middleware2, middleware3, getCategories)
     .get(getCategories)
     .post(createCategory)
     .delete(deleteCategories)
