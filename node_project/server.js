@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 
 const root = require('./routes/root')
 const category = require('./routes/category')
+const item = require('./routes/item')
+const user = require('./routes/user')
 
 dotenv.config({ path: './config/config.env' })
 
@@ -15,6 +17,8 @@ app.use(bodyParser.json())
 //define your endpoints and resources 
 app.use('/', root)
 app.use('/category', category) // route: url/category 
+app.use('/item', item)
+app.use('/user', user)
 
 const PORT = process.env.PORT || 5001
 
