@@ -8,8 +8,11 @@ const root = require('./routes/root')
 const category = require('./routes/category')
 const item = require('./routes/item')
 const user = require('./routes/user')
+const connectDB = require('./config/db')
 
 dotenv.config({ path: './config/config.env' })
+
+connectDB()
 
 const app = express();
 
