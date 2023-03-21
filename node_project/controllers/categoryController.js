@@ -22,7 +22,6 @@ const getCategories = async (req, res, next) => {
 const createCategory = async (req, res, next) => {
     try {
         const category = await Category.create(req.body)
-
         res
         .status(201) // code for sucessful meaning "created"
         .setHeader('Content-Type', 'application/json')
@@ -35,7 +34,6 @@ const createCategory = async (req, res, next) => {
 const deleteCategories = async (req, res, next) => {
     try {
         const deletedCategories = await Category.deleteMany()
-        
         res
         .status(200)
         .setHeader('Content-Type', 'application/json')
@@ -49,7 +47,6 @@ const deleteCategories = async (req, res, next) => {
 const getCategory = async (req, res, next) => {
     try {
         const category = await Category.findById(req.params.categoryId)
-
         res
         .status(200)
         .setHeader('Content-Type', 'application/json')
@@ -62,7 +59,6 @@ const getCategory = async (req, res, next) => {
 const putCategory = async (req, res, next) => {
     try {
         const category = await Category.findByIdAndUpdate(req.params.categoryId, req.body, { new: true })
-
         res
         .status(200)
         .setHeader('Content-Type', 'application/json')
@@ -75,7 +71,6 @@ const putCategory = async (req, res, next) => {
 const deleteCategory = async (req, res, next) => {
     try {
         const deletedCategory = await Category.findByIdAndDelete(req.params.categoryId)
-        
         res
         .status(200)
         .setHeader('Content-Type', 'application/json')
