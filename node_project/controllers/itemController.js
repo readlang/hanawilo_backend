@@ -1,6 +1,6 @@
+const Item = require('../models/Item')
 
-
-const getItems = (req, res, next) => {
+const getItems = async (req, res, next) => {
 
     if (Object.keys(req.query).length) {
         const {
@@ -23,47 +23,81 @@ const getItems = (req, res, next) => {
             console.log(`Searching item by ${query}`)
         }
     }
-    res
-    .status(200)
-    .setHeader('Content-Type', 'application/json')  // Saying that the payload will be JSON
-    .json({message: 'Show me all the items'})  
+    try {
+        const items = await Item.find()
+
+        res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')  // Saying that the payload will be JSON
+        .json(items)  
+    } catch (err) {
+        next(err)
+    }
 }
 
-const postItem = (req, res, next) => {
-    res
-    .status(201)
-    .setHeader('Content-Type', 'application/json')
-    .json({ message: `Creating item with name of ${req.body.itemName}`})
+const postItem = async (req, res, next) => {
+    try {
+        const item = await Item.create(req.body)
+
+        res
+        .status(201)
+        .setHeader('Content-Type', 'application/json')
+        .json(item)
+    } catch (err) {
+        next(err)
+    }
+
 }
 
-const deleteItems = (req, res, next) => {
-    res
-    .status(200)
-    .setHeader('Content-Type', 'application/json')
-    .json({ message: 'deleting the items!' })
+const deleteItems = async (req, res, next) => {
+    try {
+        const deletedItems = await Item.deleteMany()
+
+        res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(deletedItems)
+    } catch (err) {
+        next(err)
+    }
 }
 
 // For /item/:itemId - single resource
-const getItem = (req, res, next) => { 
-    console.log(req.params)
-    res
-    .status(200)
-    .setHeader('Content-Type', 'application/json')
-    .json({ message: `show me the item with the item Id of ${req.params.itemId}` })
+const getItem = async (req, res, next) => { 
+    try {
+        const item = await Item.findByIdAndUpdate(req.params.item)
+        res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(item)        
+    } catch (err) {
+        next(err)
+    }
 }
 
-const putItem = (req, res, next) => {
-    res
-    .status(200)
-    .setHeader('Content-Type', 'application/json')
-    .json({ message: `update item with the item Id of ${req.params.itemId}` })
+const putItem = async (req, res, next) => {
+    try {
+        const item = await Item.findByIdAndUpdate(req.params.item)
+        res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(item)
+    } catch (err) {
+        next(err)
+    }
+
 }
 
-const deleteItem = (req, res, next) => {
-    res
-    .status(200)
-    .setHeader('Content-Type', 'application/json')
-    .json({ message: `delete item with the item Id of ${req.params.itemId}` })
+const deleteItem = async (req, res, next) => {
+    try {
+        const deletedItem = await Item.findByIdAndDelete(req.params.itemId);
+        res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(deletedItem)
+    } catch (err) {
+        next(err)
+    }
 }
 
 module.exports = {
