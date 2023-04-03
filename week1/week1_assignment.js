@@ -253,7 +253,5 @@ const problem16and17 = () => {
 problem16and17()
 
 
-
-
 //-- PROBLEM 18 --
 
